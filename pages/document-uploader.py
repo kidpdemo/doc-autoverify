@@ -4,7 +4,7 @@ import pathlib
 st.write("""
 # UMS Document Uploader
 """)
-uploaded_file = st.file_uploader("Choose a document to verify")
+uploaded_file = st.file_uploader("Choose a document to verify", type=["png", "jpg", "jpeg"])
 # if uploaded_file is not None:
 #     bytes_data = uploaded_file.getvalue()
 #     data = uploaded_file.getvalue().decode('utf-8').splitlines()         
