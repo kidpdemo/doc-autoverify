@@ -206,7 +206,6 @@ def displayPDF(file):
 
 st.write("""
 # UMS Document verification
-# Used by Document Verification Team
 """)
 parent_path = pathlib.Path(__file__).parent.parent.resolve()
 data_path = os.path.join(parent_path, "data")
