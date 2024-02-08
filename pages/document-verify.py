@@ -151,7 +151,8 @@ def process_files (filename):
     if duplicate_count > 0:
         st.error('Document is not original!', icon="🚨")
     else:
-        st.write("Document is original")
+        st.snow()
+        st.success("Document is original")
 
 # Process files in the folder
 def process_files_in_folder(folder_path):
