@@ -228,71 +228,72 @@ else:
         st.image(file_location, caption='Document', use_column_width=True)
 
 #######
-        
-# Define the ROI coordinates for the secondary region (for header)
-roi_sslc = (100, 100, 2000, 500)
 
-# Example usage
-image_path = file_location
+if 'pdf' not in file_location:
+    # Define the ROI coordinates for the secondary region (for header)
+    roi_sslc = (100, 100, 2000, 500)
 
-# Extract text from the secondary ROI
-text_sslc = extract_text_from_roi(image_path, roi_sslc)
+    # Example usage
+    image_path = file_location
 
-# Define the pattern for secondary education
-pattern_secondary_education = r"(S\.S\.L\.C|CLASS - X|SECONDARY EDUCATION|X STANDARD)"
+    # Extract text from the secondary ROI
+    text_sslc = extract_text_from_roi(image_path, roi_sslc)
 
-# Find matches for secondary education
-secondary_education_match = re.search(pattern_secondary_education, text_sslc, re.IGNORECASE)
-secondary_education = secondary_education_match.group(0).strip() if secondary_education_match else None
-print("Secondary Education:", secondary_education)
+    # Define the pattern for secondary education
+    pattern_secondary_education = r"(S\.S\.L\.C|CLASS - X|SECONDARY EDUCATION|X STANDARD)"
 
-# Check if any of the expected keywords is present in the extracted text
-if secondary_education:
-    st.print("The uploaded document is Secondary Certificate. Proceeding with extraction.")
-    # Add your extraction logic here based on identified patterns
+    # Find matches for secondary education
+    secondary_education_match = re.search(pattern_secondary_education, text_sslc, re.IGNORECASE)
+    secondary_education = secondary_education_match.group(0).strip() if secondary_education_match else None
+    print("Secondary Education:", secondary_education)
 
-    # Define the ROI coordinates for different fields
-    roi_name = roi_fathers_name = roi_dob = (100, 100, 2000, 1150)
-    roi_total_marks = (100, 1200, 2000, 2200)
+    # Check if any of the expected keywords is present in the extracted text
+    if secondary_education:
+        st.write("The uploaded document is Secondary Certificate. Proceeding with extraction.")
+        # Add your extraction logic here based on identified patterns
 
-    # Extract text from ROIs for different fields
-    text_name = extract_text_from_roi(image_path, roi_name)
-    text_fathers_name = extract_text_from_roi(image_path, roi_fathers_name)
-    text_dob = extract_text_from_roi(image_path, roi_dob)
-    text_total_marks = extract_text_from_roi(image_path, roi_total_marks)
+        # Define the ROI coordinates for different fields
+        roi_name = roi_fathers_name = roi_dob = (100, 100, 2000, 1150)
+        roi_total_marks = (100, 1200, 2000, 2200)
 
-    # Define regular expressions for extracting specific fields
-    pattern_name = r"\bName\s*:\s*(.*)"
-    pattern_fathers_name = r"\bFather’s Name\s*:\s*(.*)"
-    pattern_dob = r"\b\d{1,2}[./-]\d{1,2}[./-]\d{2,4}\b"
-    pattern_total_marks = r'(\d{1,3}(?:\.\d{1,2})?)%'
+        # Extract text from ROIs for different fields
+        text_name = extract_text_from_roi(image_path, roi_name)
+        text_fathers_name = extract_text_from_roi(image_path, roi_fathers_name)
+        text_dob = extract_text_from_roi(image_path, roi_dob)
+        text_total_marks = extract_text_from_roi(image_path, roi_total_marks)
 
-    # Extract fields using regular expressions
-    name = re.findall(pattern_name, text_name)[0].strip() if re.findall(pattern_name, text_name) else None
-    fathers_name = re.findall(pattern_fathers_name, text_fathers_name)[0].strip() if re.findall(pattern_fathers_name, text_fathers_name) else None
-    dob = re.findall(pattern_dob, text_dob)[0].strip() if re.findall(pattern_dob, text_dob) else None
-    total_marks_match = re.search(pattern_total_marks, text_total_marks)
-    total_marks = total_marks_match.group(1) if total_marks_match else None
+        # Define regular expressions for extracting specific fields
+        pattern_name = r"\bName\s*:\s*(.*)"
+        pattern_fathers_name = r"\bFather’s Name\s*:\s*(.*)"
+        pattern_dob = r"\b\d{1,2}[./-]\d{1,2}[./-]\d{2,4}\b"
+        pattern_total_marks = r'(\d{1,3}(?:\.\d{1,2})?)%'
 
-    # Determine pass/fail status based on total marks percentage
-    pass_threshold = 35
-    pass_status = "Pass" if total_marks and float(total_marks) >= pass_threshold else "Fail"
+        # Extract fields using regular expressions
+        name = re.findall(pattern_name, text_name)[0].strip() if re.findall(pattern_name, text_name) else None
+        fathers_name = re.findall(pattern_fathers_name, text_fathers_name)[0].strip() if re.findall(pattern_fathers_name, text_fathers_name) else None
+        dob = re.findall(pattern_dob, text_dob)[0].strip() if re.findall(pattern_dob, text_dob) else None
+        total_marks_match = re.search(pattern_total_marks, text_total_marks)
+        total_marks = total_marks_match.group(1) if total_marks_match else None
 
-    # Store extracted information in a dictionary
-    extracted_data = {
-        "Name": name,
-        "Father's Name": fathers_name,
-        "Date of Birth": dob,
-        "Total Marks": total_marks,
-        "Pass/Fail Status": pass_status
-    }
-    st.write(extracted_data)
+        # Determine pass/fail status based on total marks percentage
+        pass_threshold = 35
+        pass_status = "Pass" if total_marks and float(total_marks) >= pass_threshold else "Fail"
 
-    # Write the extracted data to a JSON file
-    # output_json_file = "/content/extracted_data.json"
-    # with open(output_json_file, 'w') as json_file:
-    #     json.dump(extracted_data, json_file, indent=4)
+        # Store extracted information in a dictionary
+        extracted_data = {
+            "Name": name,
+            "Father's Name": fathers_name,
+            "Date of Birth": dob,
+            "Total Marks": total_marks,
+            "Pass/Fail Status": pass_status
+        }
+        st.write(extracted_data)
 
-    # print("Extracted data saved to:", output_json_file)
-else:
-    st.write("The uploaded document is not recognized as secondary education.")
+        # Write the extracted data to a JSON file
+        # output_json_file = "/content/extracted_data.json"
+        # with open(output_json_file, 'w') as json_file:
+        #     json.dump(extracted_data, json_file, indent=4)
+
+        # print("Extracted data saved to:", output_json_file)
+    else:
+        st.write("The uploaded document is not recognized as secondary education.")
