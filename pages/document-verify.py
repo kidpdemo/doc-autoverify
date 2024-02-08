@@ -150,6 +150,7 @@ def process_files (filename):
 
     if duplicate_count > 0:
         st.write("Document it not original")
+        st.error('Document is not original!', icon="🚨")
     else:
         st.write("Document is original")
 
@@ -216,7 +217,7 @@ file_location=os.path.join(data_path, option)
 
 print(file_location)
 st.write('Processing the document... :sunglasses:')
-st.write(file_location)
+# st.write(file_location)
 
 if 'ALL' in file_location:
     process_files_in_folder(folder_path)
