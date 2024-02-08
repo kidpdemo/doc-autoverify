@@ -24,7 +24,7 @@ def upload():
         save_path = os.path.join(parent_path, "data")
         complete_name = os.path.join(save_path, uploaded_file.name)
         destination_file = open(complete_name, "w")
-        destination_file.write(data)
+        destination_file.write(str(data))
         destination_file.close()
         st.session_state["upload_state"] = "Saved " + complete_name + " successfully!"
 st.button("Upload file to Sandbox", on_click=upload)
