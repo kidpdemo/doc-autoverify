@@ -1,1 +1,8 @@
 streamlit
+pytesseract
+PyMuPDF
+scikit-learn
+keras
+tensorflow
+opencv-python
+boto3
