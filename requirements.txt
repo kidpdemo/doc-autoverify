@@ -5,5 +5,3 @@ scikit-learn
 keras
 tensorflow
 opencv-python
-boto3
-cv2
