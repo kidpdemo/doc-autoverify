@@ -22,7 +22,7 @@ def upload():
         parent_path = pathlib.Path(__file__).parent.parent.resolve()           
         save_path = os.path.join(parent_path, "data")
         complete_name = os.path.join(save_path, uploaded_file.name)
-        destination_file = open(complete_name, "w")
+        destination_file = open(complete_name, "wb")
         destination_file.write(uploaded_file.getvalue())
         destination_file.close()
         st.session_state["upload_state"] = "Saved " + complete_name + " successfully!"
