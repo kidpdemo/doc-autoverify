@@ -229,7 +229,7 @@ else:
 
 #######
 
-if 'pdf' not in file_location or 'ALL' not in file_location:
+if 'pdf' not in file_location and 'ALL' not in file_location:
     # Define the ROI coordinates for the secondary region (for header)
     roi_sslc = (100, 100, 2000, 500)
 
