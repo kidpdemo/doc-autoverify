@@ -5,14 +5,16 @@ st.write("""
 # UMS Document Uploader
 """)
 uploaded_file = st.file_uploader("Choose a document to verify")
-if uploaded_file is not None:
-    bytes_data = uploaded_file.getvalue()
-    data = uploaded_file.getvalue().decode('utf-8').splitlines()         
-    st.session_state["preview"] = ''
-    for i in range(0, min(5, len(data))):
-        st.session_state["preview"] += data[i]
-preview = st.text_area("CSV Preview", "", height=150, key="preview")
+# if uploaded_file is not None:
+#     bytes_data = uploaded_file.getvalue()
+#     data = uploaded_file.getvalue().decode('utf-8').splitlines()         
+#     st.session_state["preview"] = ''
+#     for i in range(0, min(5, len(data))):
+#         st.session_state["preview"] += data[i]
+# preview = st.text_area("CSV Preview", "", height=150, key="preview")
+
 upload_state = st.text_area("Upload State", "", key="upload_state")
+
 def upload():
     if uploaded_file is None:
         st.session_state["upload_state"] = "Upload a file first!"

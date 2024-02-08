@@ -149,7 +149,6 @@ def process_files (filename):
                 original_count += 1
 
     if duplicate_count > 0:
-        st.write("Document it not original")
         st.error('Document is not original!', icon="🚨")
     else:
         st.write("Document is original")
