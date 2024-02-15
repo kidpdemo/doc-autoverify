@@ -38,9 +38,9 @@ import google.ai.generativelanguage as glm
 #   text = text.replace('•', '  *')
 #   return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))
 
-API_KEY='AIzaSyAYWGbQ867lEv-V3ds8FfpO76a1CEaUsDY'
+GOOGLE_API_KEY=st.secrets["GOOGLE_API_KEY"]
 
-genai.configure(api_key=API_KEY)
+genai.configure(api_key=GOOGLE_API_KEY)
 
 for m in genai.list_models():
   if 'generateContent' in m.supported_generation_methods:
